@@ -6,9 +6,9 @@ import keras
 import tensorflow
 import os
 
-transformer_model = pickle.load(open('transfromer_model', 'rb'))
+transformer_model = pickle.load(open('transfromer_model.sav', 'rb'))
 
-bidirectional_model = pickle.load(open('', 'rb'))
+bidirectional_model = pickle.load(open('bidirectional_model.sav', 'rb'))
 
 with st.sidebar:
     
