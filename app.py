@@ -6,19 +6,9 @@ import keras
 import tensorflow
 import os
 
-file_path1 = os.path.join(os.getcwd(), 'transfromer_model.sav')
+transformer_model = pickle.load(open('transfromer_model', 'rb'))
 
-if os.path.exists(file_path1):
-    transformer_model = pickle.load(open(file_path1, 'rb'))
-else:
-    st.error(f"File not found: {file_path1}")
-
-file_path2 = os.path.join(os.getcwd(), 'bidirectional_model.sav')
-
-if os.path.exists(file_path2):
-    transformer_model = pickle.load(open(file_path2, 'rb'))
-else:
-    st.error(f"File not found: {file_path2}")
+bidirectional_model = pickle.load(open('', 'rb'))
 
 with st.sidebar:
     
