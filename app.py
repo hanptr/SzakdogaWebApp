@@ -4,8 +4,15 @@ import pickle
 from streamlit_option_menu import option_menu
 import keras
 import tensorflow
+import os
 
-transformer_model=pickle.load(open('transfromer_model.sav', 'rb'))
+file_path = os.path.join(os.getcwd(), 'transfromer_model.sav')
+
+if os.path.exists(file_path):
+    transformer_model = pickle.load(open(file_path, 'rb'))
+else:
+    st.error(f"File not found: {file_path}")
+
 bidirectional_model==pickle.load(open('bidirectional_model.sav', 'rb'))
 
 with st.sidebar:
