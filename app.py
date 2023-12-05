@@ -1,4 +1,4 @@
-import numpy as np
+soimport numpy as np
 import streamlit as st
 import pickle
 from streamlit_option_menu import option_menu
@@ -12,7 +12,7 @@ with st.sidebar:
                          ['Data analytics',
                           'Classification',
                           'Upload CSV'],
-                         icons=['clipboard_data','heart','cloud_upload'],
+                         icons=['clipboard_data','person_walking','cloud_upload'],
                          default_index=0)
    
    if (selected == 'Data analytics'):
