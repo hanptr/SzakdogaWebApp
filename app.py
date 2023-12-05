@@ -4,7 +4,10 @@ import pickle
 from streamlit_option_menu import option_menu
 import keras
 import tensorflow
- 
+
+transformer_model=pickle.load(open('transfromer_model.sav', 'rb'))
+bidirectional_model==pickle.load(open('bidirectional_model.sav', 'rb'))
+
 with st.sidebar:
     
    selected = option_menu('Running intensity classification',
