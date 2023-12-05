@@ -13,7 +13,7 @@ with st.sidebar:
                          ['Data analytics',
                           'Classification',
                           'Upload CSV'],
-                         icons=['Analytics','person_walking','intensity'],
+                         icons=['0-circle','heart','intensity'],
                          default_index=0)
    
    if (selected == 'Data analytics'):
