@@ -6,15 +6,15 @@ import keras
 import tensorflow
  
 
-with st.sidebar:
-   
-   selected = option_menu('Running intensity classification',
-                         
-                         ['Data analytics',
-                          'Classification',
-                          'Upload CSV'],
-                         icons=['0-circle','heart','intensity'],
-                         default_index=0)
+ with st.sidebar:
+    
+    selected = option_menu('Running intensity classification',
+                          
+                          ['Data analytics',
+                           'Classification',
+                           'Upload CSV'],
+                          icons=['0-circle','heart','intensity'],
+                          default_index=0)
    
    if (selected == 'Data analytics'):
        # page title
