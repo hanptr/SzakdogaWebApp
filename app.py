@@ -12,7 +12,7 @@ with st.sidebar:
                          ['Data analytics',
                           'Classification',
                           'Upload CSV'],
-                         icons=['0-circle','heart','intensity'],
+                         icons=['0-circle','heart','upload'],
                          default_index=0)
 
    
