@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from streamlit import session_state
 from statistics import mode
 from tensorflow.keras.utils import to_categorical
-from sklearn import metrics
+import sklearn
 
 # Load models
 transformer_model = load_model('./transformer_model.h5')
@@ -116,9 +116,9 @@ elif selected == 'Data Classification':
 
             predicted_labels = np.argmax(predicted_labels, axis=1)
 
-            confusion_matrix = metrics.confusion_matrix(true_labels, predicted_labels)
+            confusion_matrix = sklearn.metrics.confusion_matrix(true_labels, predicted_labels)
 
-            cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['Slow', 'Fast'])
+            cm_display = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['Slow', 'Fast'])
 
             cm_display.plot()
             plt.show()
