@@ -11,6 +11,8 @@ import pandas as pd
 transformer_model = load_model('./transformer_model.h5')
 bidirectional_model = load_model('./bidirectional_model.h5')
 
+uploaded_data=None
+
 st.sidebar.title('Running intensity classification')
 
 selected = st.sidebar.radio(
