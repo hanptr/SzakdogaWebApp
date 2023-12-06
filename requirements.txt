@@ -7,4 +7,4 @@ tensorflow==2.12.0
 pandas==2.0.1
 seaborn==0.12.2
 statistics==3.4
-sklearn==1.3.2
+scikit-learn==1.2.2
