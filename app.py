@@ -33,9 +33,15 @@ with st.sidebar:
         uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
 
         if uploaded_file is not None:
-            st.write("File Uploaded Successfully!")
+            try:
+                # Attempt to read the CSV file
+                df = pd.read_csv(uploaded_file)
+                st.write("File Uploaded Successfully!")
 
-            # Display uploaded file as a DataFrame
-            df = pd.read_csv(uploaded_file)
-            st.write("### Uploaded Data:")
-            st.write(df)
+                # Display uploaded file as a DataFrame
+                st.write("### Uploaded Data:")
+                st.write(df)
+
+            except pd.errors.ParserError as e:
+                # Handle the ParserError
+                st.error(f"Error reading CSV file: {e}")
