@@ -24,6 +24,7 @@ selected = st.sidebar.radio(
     'Choose an option:',
     ['Data analytics', 'Data Classification', 'Upload CSV']
 )
+model=load_model(selected+'.h5')
 
 if selected == 'Data analytics':
     # page title
