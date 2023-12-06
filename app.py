@@ -121,7 +121,7 @@ elif selected == 'Data Classification':
                 plt.xlabel('Predicted')
                 plt.ylabel('True')
                 plt.title('Confusion Matrix')
-                plt.show()
+                st.pyplot()
 
             num_classes = 2  # Replace with the actual number of classes in your problem
             classes = ['Slow', 'Fast']
