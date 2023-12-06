@@ -64,6 +64,12 @@ elif selected == 'Data Classification':
     elif model_to_use == 'Transformer':
         model = load_model('transformer_model.h5')
 
+
+    #preprocess
+    session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Slow', 'LABEL'] = 0
+    session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Fast', 'LABEL'] = 1
+
+    
     # Classification button
     if st.button('Perform Classification'):
         if session_state.uploaded_data is not None:
