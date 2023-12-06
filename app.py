@@ -29,24 +29,22 @@ if selected == 'Data analytics':
     # page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
-        sns.countplot(x='LABEL', data=session_state.uploaded_data)
-        midpoint = len(session_state.uploaded_data) // 2
+        sns.set(style="whitegrid")
+        fig, axes = plt.subplots(1, 2, figsize=(12, 6))
 
+        sns.countplot(x='LABEL', data=session_state.uploaded_data, ax=axes[0])
+        axes[0].set_title('Distribution of Labels')
+
+        midpoint = len(session_state.uploaded_data) // 2
         first_half = session_state.uploaded_data.iloc[:midpoint]
         second_half = session_state.uploaded_data.iloc[midpoint:]
 
         label_colors = {'Fast': 'red', 'Slow': 'blue'}
 
-        plt.figure(figsize=(12, 6))
-        plt.subplot(1, 2, 1)
-        sns.countplot(x='LABEL', data=first_half, palette=label_colors)
-        plt.title('Distribution of Labels in the First Half')
+        sns.countplot(x='LABEL', data=first_half, palette=label_colors, ax=axes[1])
+        axes[1].set_title('Distribution of Labels in the First Half')
 
-        plt.subplot(1, 2, 2)
-        sns.countplot(x='LABEL', data=second_half, palette=label_colors)
-        plt.title('Distribution of Labels in the Second Half')
-
-        plt.show()
+        st.pyplot(fig)
 
 elif selected == 'Data Classification':
     # page title
