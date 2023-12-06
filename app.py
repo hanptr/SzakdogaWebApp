@@ -19,25 +19,11 @@ session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
 if 'uploaded_data' not in session_state:
     session_state.uploaded_data = None
 
-st.sidebar.title('Running intensity classification')
+# Sidebar navigation
+options = ['Data analytics', 'Data Classification', 'Upload CSV']
+selected_option = st.sidebar.selectbox('Choose an option:', options)
 
-# Create buttons for each option in the sidebar
-btn_analytics = st.sidebar.button('Data Analytics')
-btn_classification = st.sidebar.button('Data Classification')
-btn_upload = st.sidebar.button('Upload CSV')
-
-# Check which button is clicked
-if btn_analytics:
-    selected = 'Data analytics'
-elif btn_classification:
-    selected = 'Data Classification'
-elif btn_upload:
-    selected = 'Upload CSV'
-else:
-    # Default to Data Analytics if no button is clicked
-    selected = 'Data analytics'
-
-if selected == 'Data analytics':
+if selected_option == 'Data analytics':
     # Page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
@@ -63,7 +49,7 @@ if selected == 'Data analytics':
         
         st.pyplot(fig)
 
-elif selected == 'Data Classification':
+elif selected_option == 'Data Classification':
     # Page title
     st.title('Classifying the data')
 
@@ -146,7 +132,7 @@ elif selected == 'Data Classification':
         else:
             st.write("Please upload data before classification!")
 
-elif selected == 'Upload CSV':
+elif selected_option == 'Upload CSV':
     # Page title
     st.title('Upload the desired CSV')
 
