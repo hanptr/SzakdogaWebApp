@@ -133,6 +133,7 @@ elif selected == 'Data Classification':
             plt.ylabel('True')
             plt.title('Confusion Matrix')
             st.pyplot()
+            
 
 
         else:
