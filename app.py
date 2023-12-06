@@ -82,10 +82,11 @@ elif selected == 'Data Classification':
         X = []
         y = []
         for i in range(len(df_as_np)-window_size):
-            row = [r[:-1] for r in df_as_np[i:i+window_size]]
+            row = [r for r in df_as_np[i:i+window_size]]
             X.append(row)
-            label = mode(df_as_np[i:i+window_size,-1])
+            label = df_as_np[i+window_size][-1]
             y.append(label)
+
         return np.array(X), np.array(y)
     
     X, y = df_to_X_y(data, win_size)
