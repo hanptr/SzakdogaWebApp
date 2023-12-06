@@ -1,16 +1,13 @@
 import numpy as np
 import streamlit as st
 import pickle
-from streamlit_option_menu import option_menu
 import keras
 import tensorflow as tf
-import os
 from keras.models import load_model
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
-from statistics import mode
 from tensorflow.keras.utils import to_categorical
 
 # Load models
@@ -22,14 +19,29 @@ session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
 if 'uploaded_data' not in session_state:
     session_state.uploaded_data = None
 
-st.sidebar.title('Running intensity classification')
-
-selected = st.sidebar.radio(
-    'Choose an option:',
-    ['Data analytics', 'Data Classification', 'Upload CSV']
+# Custom CSS for larger radio buttons and title
+st.markdown(
+    """
+    <style>
+    .sidebar .sidebar-content {
+        width: 300px;
+    }
+    .sidebar .radio-group label {
+        font-size: 20px;
+    }
+    .css-1tj5abo {
+        font-size: 24px !important;
+    }
+    </style>
+    """,
+    unsafe_allow_html=True
 )
 
-if selected == 'Data analytics':
+# Sidebar navigation
+options = ['Data analytics', 'Data Classification', 'Upload CSV']
+selected_option = st.sidebar.selectbox('Choose an option:', options)
+
+if selected_option == 'Data analytics':
     # Page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
@@ -55,7 +67,7 @@ if selected == 'Data analytics':
         
         st.pyplot(fig)
 
-elif selected == 'Data Classification':
+elif selected_option == 'Data Classification':
     # Page title
     st.title('Classifying the data')
 
@@ -138,7 +150,7 @@ elif selected == 'Data Classification':
         else:
             st.write("Please upload data before classification!")
 
-elif selected == 'Upload CSV':
+elif selected_option == 'Upload CSV':
     # Page title
     st.title('Upload the desired CSV')
 
