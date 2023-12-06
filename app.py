@@ -5,10 +5,10 @@ from streamlit_option_menu import option_menu
 import keras
 import tensorflow
 import os
+from keras.models import load_model
 
-transformer_model = pickle.load(open('transformer_model.sav', 'rb'))
-
-bidirectional_model = pickle.load(open('bidirectional_model.sav', 'rb'))
+transformer_model = load_model('transformer_model.h5')
+bidirectional_model = load_model('bidirectional_model.h5')
 
 with st.sidebar:
     
