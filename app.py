@@ -125,11 +125,13 @@ elif selected == 'Data Classification':
 
 
             num_classes = 2  # Replace with the actual number of classes in your problem
-            classes = [f'Class {i}' for i in range(num_classes)]
+            classes = ['Slow', 'Fast']
 
-            conf_matrix = confusion_matrix(true_labels, predicted_labels, num_classes)
+            conf_matrix = np.zeros((num_classes, num_classes), dtype=int)
+            for i in range(len(true_labels)):
+                conf_matrix[true_labels[i], predicted_labels[i]] += 1
 
-            plot_confusion_matrix(conf_matrix, classes_example)
+            plot_confusion_matrix(conf_matrix, classes)
 
         else:
             st.write("Please upload data before classification!")
