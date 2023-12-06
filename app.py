@@ -24,7 +24,6 @@ selected = st.sidebar.radio(
     'Choose an option:',
     ['Data analytics', 'Data Classification', 'Upload CSV']
 )
-model=load_model(selected+'.h5')
 
 if selected == 'Data analytics':
     # page title
@@ -60,6 +59,11 @@ elif selected == 'Data Classification':
     'Please choose the desired model for classification:',
     ['Bidirectional', 'Transformer']
 )
+    if model_to_use=='Bidirectional':
+        model=load_model('bidirectional_model.h5')
+
+    elif model_to_use=='Transformer':
+        model=load_model('transformer_model.h5')
 
 elif selected == 'Upload CSV':
     # page title
