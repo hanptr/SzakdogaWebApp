@@ -11,7 +11,6 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
 from statistics import mode
-import metrics
 
 # Load models
 transformer_model = load_model('./transformer_model.h5')
