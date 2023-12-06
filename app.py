@@ -47,6 +47,8 @@ if selected == 'Data analytics':
         sns.countplot(x='LABEL', data=second_half, palette=label_colors, ax=axes[2])
         axes[2].set_title('Distribution of Labels in the First Half')
 
+        plt.subplots_adjust(hspace=0.5)
+        
         st.pyplot(fig)
 
 elif selected == 'Data Classification':
