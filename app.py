@@ -92,7 +92,7 @@ elif selected == 'Data Classification':
     
     X, y = df_to_X_y(data, win_size)
 
-    y_one_hot = to_categorical(y, num_classes=2)
+    #y_one_hot = to_categorical(y, num_classes=2)
 
     # Classification button
     if st.button('Perform Classification'):
@@ -112,7 +112,6 @@ elif selected == 'Data Classification':
             true_labels=y
             predicted_labels=tf.math.round(classification_result)
 
-            true_labels = np.argmax(true_labels, axis=1)
             predicted_labels = np.argmax(predicted_labels, axis=1)
 
             confusion_matrix = metrics.confusion_matrix(true_labels, predicted_labels)
