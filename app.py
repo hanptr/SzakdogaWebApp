@@ -1,13 +1,16 @@
 import numpy as np
 import streamlit as st
 import pickle
+from streamlit_option_menu import option_menu
 import keras
 import tensorflow as tf
+import os
 from keras.models import load_model
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
+from statistics import mode
 from tensorflow.keras.utils import to_categorical
 
 # Load models
@@ -19,11 +22,14 @@ session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
 if 'uploaded_data' not in session_state:
     session_state.uploaded_data = None
 
-# Sidebar navigation
-options = ['Data analytics', 'Data Classification', 'Upload CSV']
-selected_option = st.sidebar.selectbox('Choose an option:', options)
+st.sidebar.title('Running intensity classification')
 
-if selected_option == 'Data analytics':
+selected = st.sidebar.radio(
+    'Choose an option:',
+    ['Data analytics', 'Data Classification', 'Upload CSV']
+)
+
+if selected == 'Data analytics':
     # Page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
@@ -49,7 +55,7 @@ if selected_option == 'Data analytics':
         
         st.pyplot(fig)
 
-elif selected_option == 'Data Classification':
+elif selected == 'Data Classification':
     # Page title
     st.title('Classifying the data')
 
@@ -132,7 +138,7 @@ elif selected_option == 'Data Classification':
         else:
             st.write("Please upload data before classification!")
 
-elif selected_option == 'Upload CSV':
+elif selected == 'Upload CSV':
     # Page title
     st.title('Upload the desired CSV')
 
