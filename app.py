@@ -72,12 +72,17 @@ elif selected == 'Data Classification':
             # This is just a placeholder
             st.write("Performing classification...")
 
+            
+
             # Placeholder for the classification result
             # Replace this with the actual classification result
-            classification_result = ['Class 1', 'Class 2', 'Class 3']
+            classification_result = model.predict(session_state.uploaded_data)
             
             st.write("### Classification Result:")
             st.write(classification_result)
+
+        else:
+            st.write("Please upload data before classification!")
 
 elif selected == 'Upload CSV':
     # page title
