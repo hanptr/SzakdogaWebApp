@@ -93,8 +93,6 @@ elif selected == 'Data Classification':
     
     X, y = df_to_X_y(data, win_size)
 
-    X=X[12206:]
-    y=y[12206:]
     #y_one_hot = to_categorical(y, num_classes=2)
 
     # Classification button
