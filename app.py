@@ -123,13 +123,14 @@ elif selected == 'Data Classification':
                 plt.title('Confusion Matrix')
                 plt.show()
 
-
             num_classes = 2  # Replace with the actual number of classes in your problem
             classes = ['Slow', 'Fast']
 
             conf_matrix = np.zeros((num_classes, num_classes), dtype=int)
             for i in range(len(true_labels)):
-                conf_matrix[true_labels[i], predicted_labels[i]] += 1
+                true_label = int(true_labels[i])
+                predicted_label = int(predicted_labels[i])
+                conf_matrix[true_label, predicted_label] += 1
 
             plot_confusion_matrix(conf_matrix, classes)
 
