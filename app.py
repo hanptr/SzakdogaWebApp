@@ -30,7 +30,7 @@ if selected == 'Data analytics':
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
         sns.set(style="whitegrid")
-        fig, axes = plt.subplots(3, 1, figsize=(12, 6))
+        fig, axes = plt.subplots(3, 1, figsize=(6, 12))
 
         sns.countplot(x='LABEL', data=session_state.uploaded_data, ax=axes[0])
         axes[0].set_title('Distribution of Labels')
