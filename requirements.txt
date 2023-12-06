@@ -6,3 +6,4 @@ keras==2.12.0
 tensorflow==2.12.0
 pandas==2.0.1
 seaborn==0.12.2
+statistics==3.4
