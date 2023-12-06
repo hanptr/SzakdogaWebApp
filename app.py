@@ -7,8 +7,8 @@ import tensorflow
 import os
 from keras.models import load_model
 
-transformer_model = load_model('transformer_model.h5')
-bidirectional_model = load_model('bidirectional_model.h5')
+transformer_model = load_model('/transformer_model.h5')
+bidirectional_model = load_model('/bidirectional_model.h5')
 
 with st.sidebar:
     
