@@ -55,9 +55,8 @@ elif selected == 'Data Classification':
     # page title
     st.title('Classifying the data')
 
-    st.write('Please choose the desired model for classification:')
     selected = st.radio(
-    'Choose an option:',
+    'Please choose the desired model for classification:',
     ['Bidirectional', 'Transformer']
 )
 
