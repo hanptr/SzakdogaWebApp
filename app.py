@@ -31,15 +31,16 @@ with st.sidebar:
        st.title('Classifying the data')
        
    if (selected == 'Upload CSV'):
+       
        # page title
        st.title('Upload the desired CSV')
        
        uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
 
-       if uploaded_file is not None:
-           st.write("File Uploaded Successfully!")
-    
-           # Display uploaded file as a DataFrame
-           df = pd.read_csv(uploaded_file)
-           st.write("### Uploaded Data:")
-           st.write(df)
+    if uploaded_file is not None:
+        st.write("File Uploaded Successfully!")
+
+        # Display uploaded file as a DataFrame
+        df = pd.read_csv(uploaded_file)
+        st.write("### Uploaded Data:")
+        st.write(df)
