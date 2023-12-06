@@ -12,7 +12,7 @@ import matplotlib.pyplot as plt
 from streamlit import session_state
 from statistics import mode
 from tensorflow.keras.utils import to_categorical
-from sklearn import metrics
+from scikit-learn import metrics
 
 # Load models
 transformer_model = load_model('./transformer_model.h5')
