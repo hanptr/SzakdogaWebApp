@@ -11,6 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
 
+# Load models
 transformer_model = load_model('./transformer_model.h5')
 bidirectional_model = load_model('./bidirectional_model.h5')
 
@@ -26,7 +27,7 @@ selected = st.sidebar.radio(
 )
 
 if selected == 'Data analytics':
-    # page title
+    # Page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
         sns.set(style="whitegrid")
@@ -52,7 +53,7 @@ if selected == 'Data analytics':
         st.pyplot(fig)
 
 elif selected == 'Data Classification':
-    # page title
+    # Page title
     st.title('Classifying the data')
 
     model_to_use = st.radio(
@@ -64,30 +65,29 @@ elif selected == 'Data Classification':
     elif model_to_use == 'Transformer':
         model = load_model('transformer_model.h5')
 
-
-    #preprocess
+    # Preprocess
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Slow', 'LABEL'] = 0
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Fast', 'LABEL'] = 1
 
     session_state.uploaded_data = session_state.uploaded_data.astype(float)
 
-    session_state.uploaded_data=session_state.uploaded_data.drop(columns='TIME')
+    session_state.uploaded_data = session_state.uploaded_data.drop(columns='TIME')
 
-    win_size=10
+    win_size = 10
 
     def df_to_X_y(df, window_size=60):
-        s
-        df_as_np=df.to_numpy()
-        X=[]
-        y=[]
+        df_as_np = df.to_numpy()
+        X = []
+        y = []
         for i in range(len(df_as_np)-window_size):
-            row=[r[:-1] for r in df_as_np[i:i+window_size]]
+            row = [r[:-1] for r in df_as_np[i:i+window_size]]
             X.append(row)
-            label=mode(df_as_np[i:i+window_size,-1])
+            label = mode(df_as_np[i:i+window_size,-1])
             y.append(label)
-      return np.array(X), np.array(y)
+        return np.array(X), np.array(y)
     
-    X, y=df_to_X_y(session_state.uploaded_data, win_size)
+    X, y = df_to_X_y(session_state.uploaded_data, win_size)
+
     # Classification button
     if st.button('Perform Classification'):
         if session_state.uploaded_data is not None:
@@ -95,8 +95,6 @@ elif selected == 'Data Classification':
             # You need to replace this part with your actual classification logic
             # This is just a placeholder
             st.write("Performing classification...")
-
-            
 
             # Placeholder for the classification result
             # Replace this with the actual classification result
@@ -109,7 +107,7 @@ elif selected == 'Data Classification':
             st.write("Please upload data before classification!")
 
 elif selected == 'Upload CSV':
-    # page title
+    # Page title
     st.title('Upload the desired CSV')
 
     uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
