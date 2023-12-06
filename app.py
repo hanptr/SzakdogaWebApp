@@ -3,7 +3,7 @@ import streamlit as st
 import pickle
 from streamlit_option_menu import option_menu
 import keras
-import tensorflow
+import tensorflow as tf
 import os
 from keras.models import load_model
 import pandas as pd
