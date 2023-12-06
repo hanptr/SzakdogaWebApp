@@ -11,9 +11,9 @@ import pandas as pd
 transformer_model = load_model('./transformer_model.h5')
 bidirectional_model = load_model('./bidirectional_model.h5')
 
-st.title('Running intensity classification')
+st.sidebar.title('Running intensity classification')
 
-selected = st.radio(
+selected = st.sidebar.radio(
     'Choose an option:',
     ['Data analytics', 'Data Classification', 'Upload CSV']
 )
