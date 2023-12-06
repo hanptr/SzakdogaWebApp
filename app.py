@@ -92,7 +92,7 @@ elif selected == 'Data Classification':
 
     # Classification button
     if st.button('Perform Classification'):
-        if sdata is not None:
+        if data is not None:
             # Perform classification using the selected model
             # You need to replace this part with your actual classification logic
             # This is just a placeholder
