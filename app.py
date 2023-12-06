@@ -125,7 +125,7 @@ elif selected == 'Data Classification':
             st.write("### Confusion Matrix:")
             st.write(conf_matrix)
 
-            # You can visualize the confusion matrix using seaborn or any other plotting library
+            # Display raw counts in the confusion matrix
             st.write("### Confusion Matrix Visualization:")
             plt.figure(figsize=(len(classes), len(classes)))
             sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
@@ -133,6 +133,7 @@ elif selected == 'Data Classification':
             plt.ylabel('True')
             plt.title('Confusion Matrix')
             st.pyplot()
+
 
         else:
             st.write("Please upload data before classification!")
