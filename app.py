@@ -65,15 +65,15 @@ elif selected == 'Data Classification':
         model = load_model('bidirectional_model.h5')
     elif model_to_use == 'Transformer':
         model = load_model('transformer_model.h5')
-
+    data=session_state.uploaded_data
     # Preprocess
-    session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Slow', 'LABEL'] = 0
-    session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Fast', 'LABEL'] = 1
+    data.loc[data['LABEL'] == 'Slow', 'LABEL'] = 0
+    data.loc[data['LABEL'] == 'Fast', 'LABEL'] = 1
 
-    if 'TIME' in session_state.uploaded_data.columns:
-        session_state.uploaded_data = session_state.uploaded_data.drop(columns='TIME')
+    if 'TIME' in data:
+        data = data.drop(columns='TIME')
 
-    session_state.uploaded_data = session_state.uploaded_data.astype(float)
+    data = data.astype(float)
 
     win_size = 10
 
@@ -88,11 +88,11 @@ elif selected == 'Data Classification':
             y.append(label)
         return np.array(X), np.array(y)
     
-    X, y = df_to_X_y(session_state.uploaded_data, win_size)
+    X, y = df_to_X_y(data, win_size)
 
     # Classification button
     if st.button('Perform Classification'):
-        if session_state.uploaded_data is not None:
+        if sdata is not None:
             # Perform classification using the selected model
             # You need to replace this part with your actual classification logic
             # This is just a placeholder
@@ -100,7 +100,7 @@ elif selected == 'Data Classification':
 
             # Placeholder for the classification result
             # Replace this with the actual classification result
-            classification_result = model.predict(session_state.uploaded_data)
+            classification_result = model.predict(X)
             
             st.write("### Classification Result:")
             st.write(classification_result)
