@@ -115,27 +115,24 @@ elif selected == 'Data Classification':
             
             true_labels = y
             predicted_labels = tf.math.round(classification_result)
-
             predicted_labels = np.argmax(predicted_labels, axis=1)
-
-            def plot_confusion_matrix(conf_matrix, classes):
-                plt.figure(figsize=(len(classes), len(classes)))
-                sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-                plt.xlabel('Predicted')
-                plt.ylabel('True')
-                plt.title('Confusion Matrix')
-                st.pyplot()
 
             num_classes = 2  # Replace with the actual number of classes in your problem
             classes = ['Slow', 'Fast']
 
-            conf_matrix = np.zeros((num_classes, num_classes), dtype=int)
-            for i in range(len(true_labels)):
-                true_label = int(true_labels[i])
-                predicted_label = int(predicted_labels[i])
-                conf_matrix[true_label, predicted_label] += 1
+            conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
 
-            plot_confusion_matrix(conf_matrix, classes)
+            st.write("### Confusion Matrix:")
+            st.write(conf_matrix)
+
+            # You can visualize the confusion matrix using seaborn or any other plotting library
+            st.write("### Confusion Matrix Visualization:")
+            plt.figure(figsize=(len(classes), len(classes)))
+            sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+            plt.xlabel('Predicted')
+            plt.ylabel('True')
+            plt.title('Confusion Matrix')
+            st.pyplot()
 
         else:
             st.write("Please upload data before classification!")
