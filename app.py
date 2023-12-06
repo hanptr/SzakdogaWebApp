@@ -141,4 +141,23 @@ elif selected == 'Data Classification':
 
 elif selected == 'Upload CSV':
     # Page title
-    st.title('Upload the desired
+    st.title('Upload the desired CSV')
+
+    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        try:
+            # Attempt to read the CSV file
+            df = pd.read_csv(uploaded_file)
+            st.write("File Uploaded Successfully!")
+
+            # Save the uploaded data to session state
+            session_state.uploaded_data = df
+
+            # Display uploaded file as a DataFrame
+            st.write("### Uploaded Data:")
+            st.write(df)
+
+        except pd.errors.ParserError as e:
+            # Handle the ParserError
+            st.error(f"Error reading CSV file: {e}")
