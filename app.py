@@ -1,16 +1,13 @@
 import numpy as np
 import streamlit as st
 import pickle
-from streamlit_option_menu import option_menu
 import keras
 import tensorflow as tf
-import os
 from keras.models import load_model
 import pandas as pd
 import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
-from statistics import mode
 from tensorflow.keras.utils import to_categorical
 
 # Load models
@@ -24,10 +21,21 @@ if 'uploaded_data' not in session_state:
 
 st.sidebar.title('Running intensity classification')
 
-selected = st.sidebar.radio(
-    'Choose an option:',
-    ['Data analytics', 'Data Classification', 'Upload CSV']
-)
+# Create buttons for each option in the sidebar
+btn_analytics = st.sidebar.button('Data Analytics')
+btn_classification = st.sidebar.button('Data Classification')
+btn_upload = st.sidebar.button('Upload CSV')
+
+# Check which button is clicked
+if btn_analytics:
+    selected = 'Data analytics'
+elif btn_classification:
+    selected = 'Data Classification'
+elif btn_upload:
+    selected = 'Upload CSV'
+else:
+    # Default to Data Analytics if no button is clicked
+    selected = 'Data analytics'
 
 if selected == 'Data analytics':
     # Page title
@@ -102,61 +110,4 @@ elif selected == 'Data Classification':
     if st.button('Perform Classification'):
         if data is not None:
             # Perform classification using the selected model
-            # You need to replace this part with your actual classification logic
-            # This is just a placeholder
-            st.write("Performing classification...")
-
-            # Placeholder for the classification result
-            # Replace this with the actual classification result
-            classification_result = model.predict(X)
-            
-            st.write("### Classification Result:")
-            st.write(classification_result)
-            
-            true_labels = y
-            predicted_labels = tf.math.round(classification_result)
-            predicted_labels = np.argmax(predicted_labels, axis=1)
-
-            num_classes = 2  # Replace with the actual number of classes in your problem
-            classes = ['Slow', 'Fast']
-
-            conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
-
-            st.write("### Confusion Matrix:")
-            st.write(conf_matrix)
-
-            # Display raw counts in the confusion matrix
-            st.write("### Confusion Matrix Visualization:")
-            plt.figure(figsize=(len(classes), len(classes)))
-            sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-            plt.xlabel('Predicted')
-            plt.ylabel('True')
-            plt.title('Confusion Matrix')
-            st.pyplot()
-
-
-        else:
-            st.write("Please upload data before classification!")
-
-elif selected == 'Upload CSV':
-    # Page title
-    st.title('Upload the desired CSV')
-
-    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
-
-    if uploaded_file is not None:
-        try:
-            # Attempt to read the CSV file
-            df = pd.read_csv(uploaded_file)
-            st.write("File Uploaded Successfully!")
-
-            # Save the uploaded data to session state
-            session_state.uploaded_data = df
-
-            # Display uploaded file as a DataFrame
-            st.write("### Uploaded Data:")
-            st.write(df)
-
-        except pd.errors.ParserError as e:
-            # Handle the ParserError
-            st.error(f"Error reading CSV file: {e}")
+        
