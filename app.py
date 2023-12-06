@@ -134,4 +134,35 @@ elif selected == 'Data Classification':
 
             plot_confusion_matrix(conf_matrix_example, classes_example)
             
-            confusion_matrix = sklearn.metrics.confusion_matrix(true
+            confusion_matrix = sklearn.metrics.confusion_matrix(true_labels, predicted_labels)
+
+            cm_display = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix, display_labels=['Slow', 'Fast'])
+
+            cm_display.plot()
+            plt.show()
+
+        else:
+            st.write("Please upload data before classification!")
+
+elif selected == 'Upload CSV':
+    # Page title
+    st.title('Upload the desired CSV')
+
+    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+
+    if uploaded_file is not None:
+        try:
+            # Attempt to read the CSV file
+            df = pd.read_csv(uploaded_file)
+            st.write("File Uploaded Successfully!")
+
+            # Save the uploaded data to session state
+            session_state.uploaded_data = df
+
+            # Display uploaded file as a DataFrame
+            st.write("### Uploaded Data:")
+            st.write(df)
+
+        except pd.errors.ParserError as e:
+            # Handle the ParserError
+            st.error(f"Error reading CSV file: {e}")
