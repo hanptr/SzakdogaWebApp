@@ -123,23 +123,13 @@ elif selected == 'Data Classification':
                 plt.title('Confusion Matrix')
                 plt.show()
 
-            # Example usage:
-            true_labels_example = np.array([0, 1, 1, 0, 2, 2, 2])
-            predicted_labels_example = np.array([0, 1, 1, 0, 2, 0, 2])
 
-            num_classes_example = 3  # Replace with the actual number of classes in your problem
-            classes_example = [f'Class {i}' for i in range(num_classes_example)]
+            num_classes = 2  # Replace with the actual number of classes in your problem
+            classes = [f'Class {i}' for i in range(num_classes)]
 
-            conf_matrix_example = confusion_matrix(true_labels_example, predicted_labels_example, num_classes_example)
+            conf_matrix = confusion_matrix(true_labels, predicted_labels, num_classes)
 
-            plot_confusion_matrix(conf_matrix_example, classes_example)
-            
-            confusion_matrix = sklearn.metrics.confusion_matrix(true_labels, predicted_labels)
-
-            cm_display = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix=confusion_matrix, display_labels=['Slow', 'Fast'])
-
-            cm_display.plot()
-            plt.show()
+            plot_confusion_matrix(conf_matrix, classes_example)
 
         else:
             st.write("Please upload data before classification!")
