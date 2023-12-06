@@ -22,11 +22,11 @@ if selected == 'Data analytics':
     # page title
     st.title('Analyzing the data')
 
-if selected == 'Data Classification':
+elif selected == 'Data Classification':
     # page title
     st.title('Classifying the data')
 
-if selected == 'Upload CSV':
+elif selected == 'Upload CSV':
     # page title
     st.title('Upload the desired CSV')
 
@@ -45,4 +45,3 @@ if selected == 'Upload CSV':
         except pd.errors.ParserError as e:
             # Handle the ParserError
             st.error(f"Error reading CSV file: {e}")
-
