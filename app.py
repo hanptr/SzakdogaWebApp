@@ -45,7 +45,7 @@ if selected == 'Data analytics':
         axes[1].set_title('Distribution of Labels in the First Half')
 
         sns.countplot(x='LABEL', data=second_half, palette=label_colors, ax=axes[2])
-        axes[2].set_title('Distribution of Labels in the First Half')
+        axes[2].set_title('Distribution of Labels in the Second Half')
 
         plt.subplots_adjust(hspace=0.5)
         
@@ -56,14 +56,28 @@ elif selected == 'Data Classification':
     st.title('Classifying the data')
 
     model_to_use = st.radio(
-    'Please choose the desired model for classification:',
-    ['Bidirectional', 'Transformer']
-)
-    if model_to_use=='Bidirectional':
-        model=load_model('bidirectional_model.h5')
+        'Please choose the desired model for classification:',
+        ['Bidirectional', 'Transformer']
+    )
+    if model_to_use == 'Bidirectional':
+        model = load_model('bidirectional_model.h5')
+    elif model_to_use == 'Transformer':
+        model = load_model('transformer_model.h5')
 
-    elif model_to_use=='Transformer':
-        model=load_model('transformer_model.h5')
+    # Classification button
+    if st.button('Perform Classification'):
+        if session_state.uploaded_data is not None:
+            # Perform classification using the selected model
+            # You need to replace this part with your actual classification logic
+            # This is just a placeholder
+            st.write("Performing classification...")
+
+            # Placeholder for the classification result
+            # Replace this with the actual classification result
+            classification_result = ['Class 1', 'Class 2', 'Class 3']
+            
+            st.write("### Classification Result:")
+            st.write(classification_result)
 
 elif selected == 'Upload CSV':
     # page title
