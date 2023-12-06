@@ -11,6 +11,7 @@ import seaborn as sns
 import matplotlib.pyplot as plt
 from streamlit import session_state
 from statistics import mode
+import metrics
 
 # Load models
 transformer_model = load_model('./transformer_model.h5')
@@ -91,6 +92,8 @@ elif selected == 'Data Classification':
     
     X, y = df_to_X_y(data, win_size)
 
+    y_one_hot = to_categorical(y, num_classes=2)
+
     # Classification button
     if st.button('Perform Classification'):
         if data is not None:
@@ -105,6 +108,20 @@ elif selected == 'Data Classification':
             
             st.write("### Classification Result:")
             st.write(classification_result)
+            
+            true_labels=y
+            predicted_labels=tf.math.round(classification_result)
+
+            true_labels = np.argmax(true_labels, axis=1)
+            predicted_labels = np.argmax(predicted_labels, axis=1)
+
+            confusion_matrix = metrics.confusion_matrix(true_labels, predicted_labels)
+
+            cm_display = metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['Slow', 'Fast'])
+
+            cm_display.plot()
+            plt.show()
+            
 
         else:
             st.write("Please upload data before classification!")
