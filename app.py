@@ -19,24 +19,6 @@ session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
 if 'uploaded_data' not in session_state:
     session_state.uploaded_data = None
 
-# Custom CSS for larger radio buttons and title
-st.markdown(
-    """
-    <style>
-    .sidebar .sidebar-content {
-        width: 300px;
-    }
-    .sidebar .radio-group label {
-        font-size: 20px;
-    }
-    .css-1tj5abo {
-        font-size: 24px !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-
 # Sidebar navigation
 options = ['Data analytics', 'Data Classification', 'Upload CSV']
 selected_option = st.sidebar.selectbox('Choose an option:', options)
