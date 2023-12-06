@@ -30,8 +30,7 @@ with st.sidebar:
         st.title('Classifying the data')
        
     if (selected == 'Upload CSV'):
-        asd
-       
+               
         # page title
         st.title('Upload the desired CSV')
        
