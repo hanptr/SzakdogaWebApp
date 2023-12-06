@@ -12,7 +12,6 @@ import matplotlib.pyplot as plt
 from streamlit import session_state
 from statistics import mode
 from tensorflow.keras.utils import to_categorical
-import sklearn
 
 # Load models
 transformer_model = load_model('./transformer_model.h5')
@@ -68,7 +67,7 @@ elif selected == 'Data Classification':
         model = load_model('bidirectional_model.h5')
     elif model_to_use == 'Transformer':
         model = load_model('transformer_model.h5')
-    data=session_state.uploaded_data
+    data = session_state.uploaded_data
     # Preprocess
     data.loc[data['LABEL'] == 'Slow', 'LABEL'] = 0
     data.loc[data['LABEL'] == 'Fast', 'LABEL'] = 1
@@ -111,41 +110,28 @@ elif selected == 'Data Classification':
             st.write("### Classification Result:")
             st.write(classification_result)
             
-            true_labels=y
-            predicted_labels=tf.math.round(classification_result)
+            true_labels = y
+            predicted_labels = tf.math.round(classification_result)
 
             predicted_labels = np.argmax(predicted_labels, axis=1)
 
-            confusion_matrix = sklearn.metrics.confusion_matrix(true_labels, predicted_labels)
+            def plot_confusion_matrix(conf_matrix, classes):
+                plt.figure(figsize=(len(classes), len(classes)))
+                sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+                plt.xlabel('Predicted')
+                plt.ylabel('True')
+                plt.title('Confusion Matrix')
+                plt.show()
 
-            cm_display = sklearn.metrics.ConfusionMatrixDisplay(confusion_matrix = confusion_matrix, display_labels = ['Slow', 'Fast'])
+            # Example usage:
+            true_labels_example = np.array([0, 1, 1, 0, 2, 2, 2])
+            predicted_labels_example = np.array([0, 1, 1, 0, 2, 0, 2])
 
-            cm_display.plot()
-            plt.show()
+            num_classes_example = 3  # Replace with the actual number of classes in your problem
+            classes_example = [f'Class {i}' for i in range(num_classes_example)]
+
+            conf_matrix_example = confusion_matrix(true_labels_example, predicted_labels_example, num_classes_example)
+
+            plot_confusion_matrix(conf_matrix_example, classes_example)
             
-
-        else:
-            st.write("Please upload data before classification!")
-
-elif selected == 'Upload CSV':
-    # Page title
-    st.title('Upload the desired CSV')
-
-    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
-
-    if uploaded_file is not None:
-        try:
-            # Attempt to read the CSV file
-            df = pd.read_csv(uploaded_file)
-            st.write("File Uploaded Successfully!")
-
-            # Save the uploaded data to session state
-            session_state.uploaded_data = df
-
-            # Display uploaded file as a DataFrame
-            st.write("### Uploaded Data:")
-            st.write(df)
-
-        except pd.errors.ParserError as e:
-            # Handle the ParserError
-            st.error(f"Error reading CSV file: {e}")
+            confusion_matrix = sklearn.metrics.confusion_matrix(true
