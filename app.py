@@ -24,7 +24,7 @@ if 'uploaded_data' not in session_state:
 
 st.sidebar.title('Running intensity classification')
 
-# Create a more sophisticated dropdown menu for the main options
+# Create a more sophisticated sidebar
 selected = st.sidebar.selectbox(
     'Choose an option:',
     ['Data analytics', 'Data Classification', 'Upload CSV']
@@ -60,7 +60,7 @@ elif selected == 'Data Classification':
     # Page title
     st.title('Classifying the data')
 
-    model_to_use = st.radio(
+    model_to_use = st.sidebar.radio(
         'Please choose the desired model for classification:',
         ['Bidirectional', 'Transformer']
     )
@@ -78,7 +78,7 @@ elif selected == 'Data Classification':
 
     data = data.astype(float)
 
-    win_size = 10
+    win_size = st.sidebar.slider('Select Window Size:', min_value=1, max_value=30, value=10)
 
     def df_to_X_y(df, window_size=60):
         df_as_np = df.to_numpy()
@@ -100,7 +100,7 @@ elif selected == 'Data Classification':
     #y_one_hot = to_categorical(y, num_classes=2)
 
     # Classification button
-    if st.button('Perform Classification'):
+    if st.sidebar.button('Perform Classification'):
         if data is not None:
             # Perform classification using the selected model
             # You need to replace this part with your actual classification logic
