@@ -69,7 +69,25 @@ elif selected == 'Data Classification':
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Slow', 'LABEL'] = 0
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Fast', 'LABEL'] = 1
 
+    session_state.uploaded_data = session_state.uploaded_data.astype(float)
+
+    session_state.uploaded_data=session_state.uploaded_data.drop(columns='TIME')
+
+    win_size=10
+
+    def df_to_X_y(df, window_size=60):
+        s
+        df_as_np=df.to_numpy()
+        X=[]
+        y=[]
+        for i in range(len(df_as_np)-window_size):
+            row=[r[:-1] for r in df_as_np[i:i+window_size]]
+            X.append(row)
+            label=mode(df_as_np[i:i+window_size,-1])
+            y.append(label)
+      return np.array(X), np.array(y)
     
+    X, y=df_to_X_y(session_state.uploaded_data, win_size)
     # Classification button
     if st.button('Perform Classification'):
         if session_state.uploaded_data is not None:
