@@ -69,9 +69,9 @@ elif selected == 'Data Classification':
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Slow', 'LABEL'] = 0
     session_state.uploaded_data.loc[session_state.uploaded_data['LABEL'] == 'Fast', 'LABEL'] = 1
 
-    session_state.uploaded_data = session_state.uploaded_data.astype(float)
-
     session_state.uploaded_data = session_state.uploaded_data.drop(columns='TIME')
+
+    session_state.uploaded_data = session_state.uploaded_data.astype(float)
 
     win_size = 10
 
