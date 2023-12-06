@@ -11,37 +11,38 @@ import pandas as pd
 transformer_model = load_model('./transformer_model.h5')
 bidirectional_model = load_model('./bidirectional_model.h5')
 
-with st.sidebar:
-    selected = option_menu('Running intensity classification',
-                           ['Data analytics',
-                            'Classification',
-                            'Upload CSV'],
-                           icons=['task', 'heart', 'upload'],
-                           default_index=0)
-    if selected == 'Data analytics':
-        # page title
-        st.title('Analyzing the data')
+st.title('Running intensity classification')
 
-    if selected == 'Data Classification':
-        # page title
-        st.title('Classifying the data')
+selected = st.radio(
+    'Choose an option:',
+    ['Data analytics', 'Data Classification', 'Upload CSV']
+)
 
-    if selected == 'Upload CSV':
-        # page title
-        st.title('Upload the desired CSV')
+if selected == 'Data analytics':
+    # page title
+    st.title('Analyzing the data')
 
-        uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
+if selected == 'Data Classification':
+    # page title
+    st.title('Classifying the data')
 
-        if uploaded_file is not None:
-            try:
-                # Attempt to read the CSV file
-                df = pd.read_csv(uploaded_file)
-                st.write("File Uploaded Successfully!")
+if selected == 'Upload CSV':
+    # page title
+    st.title('Upload the desired CSV')
 
-                # Display uploaded file as a DataFrame
-                st.write("### Uploaded Data:")
-                st.write(df)
+    uploaded_file = st.file_uploader("Choose a CSV file", type=["csv"])
 
-            except pd.errors.ParserError as e:
-                # Handle the ParserError
-                st.error(f"Error reading CSV file: {e}")
+    if uploaded_file is not None:
+        try:
+            # Attempt to read the CSV file
+            df = pd.read_csv(uploaded_file)
+            st.write("File Uploaded Successfully!")
+
+            # Display uploaded file as a DataFrame
+            st.write("### Uploaded Data:")
+            st.write(df)
+
+        except pd.errors.ParserError as e:
+            # Handle the ParserError
+            st.error(f"Error reading CSV file: {e}")
+
