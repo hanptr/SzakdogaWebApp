@@ -109,31 +109,35 @@ elif selected == 'Data Classification':
             # Placeholder for the classification result
             # Replace this with the actual classification result
             classification_result = model.predict(X)
-            
-            st.write("### Classification Result:")
-            st.write(classification_result)
-            
-            true_labels = y
-            predicted_labels = tf.math.round(classification_result)
-            predicted_labels = np.argmax(predicted_labels, axis=1)
 
-            num_classes = 2  # Replace with the actual number of classes in your problem
-            classes = ['Slow', 'Fast']
+            # Display classification result
+            col1, col2 = st.beta_columns(2)
+            with col1:
+                st.write("### Classification Result:")
+                st.write(classification_result)
 
-            conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
+            # Display confusion matrix
+            with col2:
+                true_labels = y
+                predicted_labels = tf.math.round(classification_result)
+                predicted_labels = np.argmax(predicted_labels, axis=1)
 
-            st.write("### Confusion Matrix:")
-            st.write(conf_matrix)
+                num_classes = 2  # Replace with the actual number of classes in your problem
+                classes = ['Slow', 'Fast']
 
-            # Display raw counts in the confusion matrix
-            st.write("### Confusion Matrix Visualization:")
-            plt.figure(figsize=(len(classes), len(classes)))
-            sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-            plt.xlabel('Predicted')
-            plt.ylabel('True')
-            plt.title('Confusion Matrix')
-            st.pyplot()
+                conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
 
+                st.write("### Confusion Matrix:")
+                st.write(conf_matrix)
+
+                # Display raw counts in the confusion matrix
+                st.write("### Confusion Matrix Visualization:")
+                plt.figure(figsize=(len(classes), len(classes)))
+                sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+                plt.xlabel('Predicted')
+                plt.ylabel('True')
+                plt.title('Confusion Matrix')
+                st.pyplot()
 
         else:
             st.write("Please upload data before classification!")
