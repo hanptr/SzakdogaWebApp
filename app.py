@@ -17,6 +17,7 @@ from tensorflow.keras.utils import to_categorical
 transformer_model = load_model('./transformer_model.h5')
 bidirectional_model = load_model('./bidirectional_model.h5')
 session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
+st.set_option('deprecation.showPyplotGlobalUse', False)
 
 # Initialize session state
 if 'uploaded_data' not in session_state:
