@@ -1,10 +1,8 @@
 import numpy as np
 import streamlit as st
 import pickle
-from streamlit_option_menu import option_menu
 import keras
 import tensorflow as tf
-import os
 from keras.models import load_model
 import pandas as pd
 import seaborn as sns
@@ -22,14 +20,11 @@ session_state.uploaded_data = pd.read_csv('SENSOR_DATA1010.csv')
 if 'uploaded_data' not in session_state:
     session_state.uploaded_data = None
 
-st.sidebar.title('Running intensity classification')
+# Sidebar navigation
+options = ['Data analytics', 'Data Classification', 'Upload CSV']
+selected_option = st.sidebar.selectbox('Choose an option:', options)
 
-selected = st.sidebar.radio(
-    'Choose an option:',
-    ['Data analytics', 'Data Classification', 'Upload CSV']
-)
-
-if selected == 'Data analytics':
+if selected_option == 'Data analytics':
     # Page title
     st.title('Analyzing the data')
     if session_state.uploaded_data is not None:
@@ -55,7 +50,7 @@ if selected == 'Data analytics':
         
         st.pyplot(fig)
 
-elif selected == 'Data Classification':
+elif selected_option == 'Data Classification':
     # Page title
     st.title('Classifying the data')
 
@@ -109,40 +104,37 @@ elif selected == 'Data Classification':
             # Placeholder for the classification result
             # Replace this with the actual classification result
             classification_result = model.predict(X)
+            
+            st.write("### Classification Result:")
+            st.write(classification_result)
+            
+            true_labels = y
+            predicted_labels = tf.math.round(classification_result)
+            predicted_labels = np.argmax(predicted_labels, axis=1)
 
-            # Display classification result
-            col1, col2 = st.beta_columns(2)
-            with col1:
-                st.write("### Classification Result:")
-                st.write(classification_result)
+            num_classes = 2  # Replace with the actual number of classes in your problem
+            classes = ['Slow', 'Fast']
 
-            # Display confusion matrix
-            with col2:
-                true_labels = y
-                predicted_labels = tf.math.round(classification_result)
-                predicted_labels = np.argmax(predicted_labels, axis=1)
+            conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
 
-                num_classes = 2  # Replace with the actual number of classes in your problem
-                classes = ['Slow', 'Fast']
+            st.write("### Confusion Matrix:")
+            st.write(conf_matrix)
 
-                conf_matrix = tf.math.confusion_matrix(true_labels, predicted_labels, num_classes=num_classes)
-
-                st.write("### Confusion Matrix:")
-                st.write(conf_matrix)
-
-                # Display raw counts in the confusion matrix
-                st.write("### Confusion Matrix Visualization:")
-                plt.figure(figsize=(len(classes), len(classes)))
-                sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
-                plt.xlabel('Predicted')
-                plt.ylabel('True')
-                plt.title('Confusion Matrix')
-                st.pyplot()
+            # Display raw counts in the confusion matrix
+            st.write("### Confusion Matrix Visualization:")
+            plt.figure(figsize=(len(classes), len(classes)))
+            sns.heatmap(conf_matrix, annot=True, fmt='d', cmap='Blues', xticklabels=classes, yticklabels=classes)
+            plt.xlabel('Predicted')
+            plt.ylabel('True')
+            plt.title('Confusion Matrix')
+            col1, col2 = st.columns(2)
+            col1.pyplot()
+            col2.write("Classification Result:", classification_result)
 
         else:
             st.write("Please upload data before classification!")
 
-elif selected == 'Upload CSV':
+elif selected_option == 'Upload CSV':
     # Page title
     st.title('Upload the desired CSV')
 
